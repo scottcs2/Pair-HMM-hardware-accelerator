@@ -8,9 +8,9 @@ This was created for our final project in EECS 570: Parallel Computer Architectu
 To learn more about what this project does, please read the final report: final_report.pdf
 
 ## About the branches:
-Branch main is a simple accelerator design that does not include a ring buffer optimization.
+Branch main is a simple accelerator design that does not include a ring buffer optimization. You are on this branch.
 
-Branch ring contains an RTL design with a ring buffer which dramatically increases the performance of the accelerator. You are on this branch.
+Branch ring contains an RTL design with a ring buffer which dramatically increases the performance of the accelerator. 
 
 Both versions of the accelerator are described more thoroughly in the final_report.pdf
 
