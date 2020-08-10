@@ -36,3 +36,5 @@ We used floating point units from the following repo:
 https://github.com/dawsonjon/fpu
 
 The copyright notice for these FPUs can be found in the fpu/ folder.
+
+This project was inspired by the amazing papers cited in final_report.pdf. Please check out those papers to learn more about bioinformatics and the different optimizations that can be made to the forward algorithm for Pair-HMMs.
