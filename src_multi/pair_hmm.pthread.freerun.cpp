@@ -14,7 +14,7 @@ void PairHMM::forward_alg_free(const std::vector<int> &seq_i,
                                      bool printMatrices)
 {
     vector<vector<hmm_cell>> memo(num_emissions_i + 1, vector<hmm_cell>(num_emissions_j + 1));;
-    atomic<bool>** status = new atomic<bool>*[num_emissions_i + 1];
+    atomic_bool** status = new atomic_bool*[num_emissions_i + 1];
 
     debug_init(num_emissions_i + 1, num_emissions_j + 1);
 
@@ -29,7 +29,7 @@ void PairHMM::forward_alg_free(const std::vector<int> &seq_i,
     // Begin Critical Section
     memo[0][0].m_val = 1; // initial state
     for(int i = 0; i < num_emissions_i + 1; ++i){
-        status[i] = new atomic<bool>[num_emissions_j + 1];
+        status[i] = new atomic_bool[num_emissions_j + 1];
         for(int j = 0; j < num_emissions_j + 1; ++j)
             status[i][j].store(i == 0);
         status[i][0].store(true);
@@ -75,7 +75,7 @@ void *update_cell_free(void *args_)
     pthread_mutex_init(&cout_lock, NULL);
     hmm_arg_type0 *args = (hmm_arg_type0 *)args_;
     vector<vector<hmm_cell>> &memo = args->memo;
-    atomic<bool>** status = args->status;
+    atomic_bool** status = args->status;
     const std::vector<int> &seq_i = args->seq_i;
     const std::vector<int> &seq_j = args->seq_j;
     const std::vector<double> &qbases = args->qbases;

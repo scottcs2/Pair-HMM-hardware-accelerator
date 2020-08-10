@@ -21,59 +21,42 @@ all:    simv
 #####
 
 
-#TESTBENCH = verilog/pipelined_fpu/sys_defs_pipe.svh testbench/double_adder_pipe_tb.sv 
-TESTBENCH = verilog/pipelined/pipelined_fpu/sys_defs_pipe.svh testbench/processing_element_hlf_pipe_tb.sv 
-# SIMFILES += $(wildcard verliog/pipelined_double_multiplier/*.sv verliog/pipelined_double_multiplier/*.svh)
-# SIMFILES += $(wildcard verilog/*.sv)
-SIMFILES = verilog/pipelined/pipelined_fpu/sys_defs_pipe.svh \
-			verilog/double_multiply.sv \
-			verilog/mult.sv \
-			verilog/mult_stage.sv \
-			verilog/pipelined/pipelined_fpu/pipelined_double_multiplier/mult_stage_pipe.sv \
-			verilog/pipelined/pipelined_fpu/pipelined_double_multiplier/mult_pipe.sv \
-			verilog/pipelined/pipelined_fpu/pipelined_double_multiplier/double_multiply_pipe_stages.sv \
-			verilog/pipelined/pipelined_fpu/pipelined_double_multiplier/double_multiply_pipe.sv \
-			verilog/pipelined/pipelined_fpu/pipelined_double_adder/double_adder_pipe_stages.sv \
-			verilog/pipelined/pipelined_fpu/pipelined_double_adder/double_adder_pipe.sv \
-			verilog/double_adder.sv \
-			verilog/pipelined/processing_element_hlf_pipe.sv \
-			verilog/pipelined/_ADD_MULT_hlf_pipe.sv \
-			verilog/pipelined/_MULT_ADD_hlf_pipe.sv \
-
-# SIMFILES = Verilog_multi/pipeline.sv Verilog_multi/processing_element.sv Verilog_multi/_ADD_MULT.sv Verilog_multi/_MULT_ADD.sv Verilog_multi/double_adder.sv Verilog_multi/double_multiply.sv Verilog_multi/mult.sv Verilog_multi/mult_stage.sv
+TESTBENCH = Verilog_multi/sys_defs.svh Verilog_multi/systolic_testbench.sv 
+#SIMFILES = $(wildcard Verilog_multi/*)
+SIMFILES = Verilog_multi/pipeline.sv Verilog_multi/processing_element.sv Verilog_multi/_ADD_MULT.sv Verilog_multi/_MULT_ADD.sv Verilog_multi/double_adder.sv Verilog_multi/double_multiply.sv Verilog_multi/mult.sv Verilog_multi/mult_stage.sv
 SYNFILES = processing_element_halved.vg
 LIB = /afs/umich.edu/class/eecs470/lib/verilog/lec25dscc25.v
 
+export DOUBLE_MULTIPLY_SOURCE = Verilog/mult_stage.sv Verilog/mult.sv Verilog/double_multiply.sv 
+export HEADERS = Verilog/sys_defs.svh
 
-export DOUBLE_MULTIPLY_SOURCE = verilog/mult_stage.sv verilog/mult.sv verilog/double_multiply.sv 
-export HEADERS = verilog/sys_defs.svh
 export RESET_NET_NAME = reset
 
 CAM.vg:	cam.v cam.tcl 
 	dc_shell-t -f cam.tcl | tee synth.out
 
-double_adder.vg: verilog/double_adder.sv double_adder.tcl
+double_adder.vg: Verilog/double_adder.sv double_adder.tcl
 	dc_shell-t -f double_adder.tcl | tee synth.out
 
 double_multiplier_original.vg: fpu/double_multiplier/double_multiplier_original.v double_multiplier_original.tcl
 	dc_shell-t -f double_multiplier.tcl | tee synth.out
 
-mult.vg: verilog/mult.sv mult_stage.vg mult.tcl
+mult.vg: Verilog/mult.sv mult_stage.vg mult.tcl
 	dc_shell-t -f ./mult.tcl | tee mult_synth.out
 
-mult_stage.vg:	verilog/mult_stage.sv mult_stage.tcl
+mult_stage.vg:	Verilog/mult_stage.sv mult_stage.tcl
 	dc_shell-t -f ./mult_stage.tcl | tee mult_stage_synth.out
 
-double_multiply.vg: mult_stage.vg mult.vg verilog/double_multiply.sv
+double_multiply.vg: mult_stage.vg mult.vg Verilog/double_multiply.sv
 	dc_shell-t -f ./double_multiply.tcl | tee double_multiply_synth.out
 
-processing_element.vg: mult_stage.vg mult.vg double_multiply.vg double_adder.vg verilog/processing_element.sv
+processing_element.vg: mult_stage.vg mult.vg double_multiply.vg double_adder.vg Verilog/processing_element.sv
 	dc_shell-t -f ./processing_element.tcl | tee processing_element_synth.out
 
 processing_element_halved.vg: mult_stage.vg mult.vg MULT_ADD.vg ADD_MULT.vg Verilog_multi/processing_element.sv
 	dc_shell-t -f ./processing_element_halved.tcl | tee processing_element_halved_synth.out
 
-systolic_array.vg: processing_element.vg double_adder.vg verilog/pipeline.sv
+systolic_array.vg: processing_element.vg double_adder.vg Verilog/pipeline.sv
 	dc_shell-t -f ./pipeline.tcl | tee pipeline_synth.out
 
 MULT_ADD.vg: double_multiply.vg double_adder.vg

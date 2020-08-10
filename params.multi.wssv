@@ -2,9 +2,9 @@ refReadLengthMin 100
 refReadLengthMax 100
 expReadLengthMin 100
 expReadLengthMax 100
-expReadPermsMin 100
-expReadPermsMax 100
-expReads 1000
+expReadPermsMin 1000
+expReadPermsMax 1000
+expReads 50
 qscoreMin (
 qscoreMax (
 qiMin 0.2

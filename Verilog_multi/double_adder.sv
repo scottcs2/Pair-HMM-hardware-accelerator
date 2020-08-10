@@ -1,3 +1,5 @@
+`ifndef DOUBLE_ADDER_SV
+`define DOUBLE_ADDER_SV
 //IEEE Floating Point Adder (Double Precision)
 //Copyright (C) Jonathan P Dawson 2013
 //2013-12-12
@@ -305,3 +307,4 @@ module double_adder(
 
 endmodule
 
+`endif

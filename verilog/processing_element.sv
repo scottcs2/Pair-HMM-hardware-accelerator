@@ -62,7 +62,7 @@ module processing_element (
         .input_b(add_input_b),
 	    .input_valid(add_input_valid),
         .clk(clk),
-        .reset(advance | reset),
+        .rst(advance | reset),
 
         // outputs
         .output_z(add_output_z),

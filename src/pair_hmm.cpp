@@ -21,8 +21,10 @@ void PairHMM::forward_alg(const std::vector<int> &seq_i,
     vector<vector<double> > memo_m, memo_i, memo_j;
     vector<vector<char> > pmemo_m, pmemo_i, pmemo_j; // p for pointer
 
+    vector<vector<double> > t_a, t_b;
+
     // initialize memos to all 0's (IxJ)
-    memo_m = memo_i = memo_j = vector<vector<double> >(num_emissions_i + 1, vector<double>(num_emissions_j + 1, 0.0));
+    memo_m = memo_i = memo_j = t_a = t_b = vector<vector<double> >(num_emissions_i + 1, vector<double>(num_emissions_j + 1, 0.0));
     pmemo_m = pmemo_i = pmemo_j = vector<vector<char> >(num_emissions_i + 1, vector<char>(num_emissions_j + 1, 0));
 
     // initial state
@@ -64,6 +66,11 @@ void PairHMM::forward_alg(const std::vector<int> &seq_i,
                 double m_result = (1 - (Qi + Qd)) * memo_m[i - 1][j - 1];
                 double i_result = (1 - Qg) * memo_i[i - 1][j - 1];
                 double j_result = (1 - Qg) * memo_j[i - 1][j - 1];
+
+                //t_a[i][j] = i_result + j_result;
+                //t_b[i][j] = m_result;
+                t_a[i][j] = (1 - Qg) * (memo_i[i][j-1] + memo_j[i][j-1]);
+                t_b[i][j] = (1 - (Qi + Qd)) * memo_m[i][j-1];
 
                 memo_m[i][j] = prior * (m_result + i_result + j_result);
             }
@@ -113,6 +120,26 @@ void PairHMM::forward_alg(const std::vector<int> &seq_i,
             for (int j = 0; j <= num_emissions_j; ++j)
             {
                 cout << setprecision(5) << setw(15) << memo_j[i][j];
+            }
+            cout << endl;
+        }
+
+        cout << "TA MATRIX: " << endl;
+        for (int i = 0; i <= num_emissions_i; ++i)
+        {
+            for (int j = 0; j <= num_emissions_j; ++j)
+            {
+                cout << setprecision(5) << setw(15) << t_a[i][j];
+            }
+            cout << endl;
+        }
+
+        cout << "TB MATRIX: " << endl;
+        for (int i = 0; i <= num_emissions_i; ++i)
+        {
+            for (int j = 0; j <= num_emissions_j; ++j)
+            {
+                cout << setprecision(5) << setw(15) << t_b[i][j];
             }
             cout << endl;
         }

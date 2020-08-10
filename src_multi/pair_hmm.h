@@ -18,7 +18,7 @@
 #include <fstream>
 #include <sys/time.h>
 #include <immintrin.h>
-#include <atomic>
+#include "busybarrier.h"
 
 struct haplo_data
 {
@@ -118,7 +118,7 @@ struct hmm_cell
 struct hmm_arg_type0
 {
     std::vector<std::vector<hmm_cell>> &memo;
-    std::atomic<bool> **status;
+    std::atomic_bool **status;
     const std::vector<int> &seq_i;
     const std::vector<int> &seq_j;
     const std::vector<double> &qbases;

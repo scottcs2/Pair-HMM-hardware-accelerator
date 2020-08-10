@@ -1,3 +1,5 @@
+`ifndef DOUBLE_MULTIPLY_SV
+`define DOUBLE_MULTIPLY_SV
 //IEEE Floating Point Multiplier (Double Precision)
 //Copyright (C) Jonathan P Dawson 2014
 //2014-01-10
@@ -17,7 +19,7 @@ module double_multiply (
         // outputs
         output  logic [63:0]  output_z,
         output  logic         output_done
-		
+
 		// debug output
 	,	output 	logic [3:0]	  output_state
         
@@ -375,3 +377,4 @@ module double_multiply (
 	assign output_z = z;
 
 endmodule
+`endif
