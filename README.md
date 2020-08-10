@@ -1,6 +1,6 @@
 # Pair-HMM-hardware-accelerator
 RTL design for a hardware accelerator for Pairwise Hidden Markov Models. Specifically accelerates the forward algorithm.
-This project accelerates the forward algorithm for Pairwise Hidden Markov Models (Pair-HMM). https://github.com/dawsonjon/fpu
+This project accelerates the forward algorithm for Pairwise Hidden Markov Models (Pair-HMM).
 This was created for our final project in EECS 570: Parallel Computer Architecture at the University of Michigan
 To learn more about what this project does, please read the final report: final_report.pdf
 
@@ -22,3 +22,8 @@ The fpu/ folder contains the original floating point units that we took from htt
 3. Samuel Hall
 4. John Campbell
 
+# Additional Credits
+We used floating point units from the following repo:
+https://github.com/dawsonjon/fpu
+
+The copyright notice for these FPUs can be found in the fpu/ folder.
