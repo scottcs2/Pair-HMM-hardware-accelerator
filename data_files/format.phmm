@@ -1,0 +1,8 @@
+# I - Length of sequence 1
+#01255555555555555555555555555 J - Length of sequence 2
+# Qi - the probability of opening an insertion gap
+# Qd - the probability of opening a deletion gap
+# Qg - gap continuation penalty (probability of staying in a deletion/insertion)
+# Qbase (N values) - confidence score for each base
+# One row of 3 initial state probabilites (Match, I-Insertion, J-Insertion)
+# Final two lines are DNA sequences

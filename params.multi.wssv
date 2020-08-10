@@ -1,0 +1,15 @@
+refReadLengthMin 100
+refReadLengthMax 100
+expReadLengthMin 100
+expReadLengthMax 100
+expReadPermsMin 100
+expReadPermsMax 100
+expReads 1000
+qscoreMin (
+qscoreMax (
+qiMin 0.2
+qiMax 0.3
+qdMin 0.2
+qdMax 0.3
+qgMin 0.2
+qgMax 0.3

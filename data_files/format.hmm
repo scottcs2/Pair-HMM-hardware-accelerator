@@ -1,0 +1,6 @@
+# N - Number of states
+# M - Number of emissions
+# First matrix is N x M matrix of M emission probabilities for N states
+# Second matrix is N x N matrix of transition probabilites for N states
+# Final row is N initial state probabilites
+
